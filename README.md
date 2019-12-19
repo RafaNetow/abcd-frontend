@@ -1,2 +1,3 @@
-# abcd-frontend
-abcd-frontend
+# React TypeScript Boilerplate
+
+React TypeScript Starter

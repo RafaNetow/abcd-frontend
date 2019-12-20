@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import State from './model'
 import {FormComponentProps} from 'antd/lib/form/Form';
 
@@ -21,7 +21,7 @@ import {
 
   class StudentInformation extends React.Component <FormComponentProps, State>{
    
-    handlerChangeDeDondeProviene(provinencia:string) {
+    handlerChangeDeDondeProviene(provinencia:ChangeEvent<HTMLInputElement>) {
       this.setState({provinencia})
     }
     handlerChangeInstitutoAnterior(institutoAnterior:string) {
@@ -275,6 +275,6 @@ import {
       }
 }
 
-const StudentInformationForm = Form.create({ name: " })(
+const StudentInformationForm = Form.create({ name: "register" })(
     StudentInformation
 );

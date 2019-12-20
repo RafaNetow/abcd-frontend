@@ -21,53 +21,78 @@ import {
 
   class StudentInformation extends React.Component <FormComponentProps, State>{
    
-    handlerChangeDeDondeProviene(provinencia:ChangeEvent<HTMLInputElement>) {
-      this.setState({provinencia})
+    handlerChangeDeDondeProviene(event:ChangeEvent<HTMLInputElement>) {
+      this.setState({
+        provinencia: event.target.value
+
+      });
     }
-    handlerChangeInstitutoAnterior(institutoAnterior:string) {
-      this.setState({institutoAnterior})
+    handlerChangeInstitutoAnterior(event:ChangeEvent<HTMLInputElement>) {
+      this.setState({
+        institutoAnterior: event.target.value
+
+      });
     }
    
-    handleChangeNoCuenta (event:string) {
-     this.setState({noCuenta:event});
+    handleChangeNoCuenta (event:ChangeEvent<HTMLInputElement>) {
+      this.setState({
+        noCuenta: event.target.value
+      });
    }
   
-   handlerChangeSeccion(seccion:string) {
-     this.setState({seccion})
+   handlerChangeSeccion(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      seccion: event.target.value
+    });
    }
   
   
-   handlerChangeModalidad(modalidad:string) {
-     this.setState({modalidad})
+   handlerChangeModalidad(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      modalidad: event.target.value
+    });
    }
   
-   handlerChangerMatriculaYear(event:string) {
-      this.setState({matricula: event});
-  
+   handlerChangerMatriculaYear(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      matrDate: new Date(event.target.value)
+    });
    }
   
-   handlerChangeRne(rne:string) {
-     this.setState({rne})
+   handlerChangeRne(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      rne: event.target.value
+    });
    }
   
-   handlerChangeName(name:string) {
-     this.setState({name})
+   handlerChangeName(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      name: event.target.value
+    });
    }
   
-   handlerChangeBirthDate(date:Date) {
-     this.setState({date});
+   handlerChangeBirthDate(event:ChangeEvent<HTMLInputElement>) {
+      this.setState({
+        date: new Date(event.target.value)
+      });
    }
   
-   handlerChangeLastName(lastname:String) {
-     this.setState({lastname})
+   handlerChangeLastName(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      lastname: event.target.value
+    });
    }
   
-   handlerChangeCurso(curso:String) {
-     this.setState({curso})
+   handlerChangeCurso(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      curso: event.target.value
+    });
    }
   
-   handlerCurrrentPapers(paper:String) {
-     console.log(paper)
+   handlerCurrentPapers(event:ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      paper: event.target.value
+    });
    }
   
 
@@ -242,7 +267,7 @@ import {
             <Form.Item label="Documentos que presentan">
               {getFieldDecorator('checkbox-group', {
               })(
-                <Checkbox.Group style={{ width: '100%' }} onChange = {(s) => this.handlerCurrrentPapers(s)} > 
+                <Checkbox.Group style={{ width: '100%' }} onChange = {(s) => this.handlerCurrentPapers(s)} > 
                   <Row>
                     <Col span={8}>
                       <Checkbox value="A">Certificado de sexto Grado</Checkbox>

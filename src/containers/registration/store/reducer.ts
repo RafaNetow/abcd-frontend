@@ -1,41 +1,23 @@
 import { handleActions } from "redux-actions";
-import TodoModel from "./models";
+import RegisterModel from "./model";
+import { RegistrationInitalState, RegistrationState} from "./state"
+
 import {Type} from "./types";
-import RootState from "../state";
 
-const initialState: TodoModel[] = [
-  {
-    name: "Do homework",
-    completed: true
-  },
-  {
-    name: "Do something 1",
-    completed: true
-  },
-  {
-    name: "Do something 2",
-    completed: true
-  },
-  {
-    name: "Do something 3",
-    completed: true
-  },
-  {
-    name: "Do something 4",
-    completed: true
-  },
-  {
-    name: "Do something 5",
-    completed: true
-  }
-];
+            
 
-export default handleActions<TodoModel[], TodoModel>(
+
+export default handleActions<RegistrationState>(
   {
-    [Types.ADD_TODO]: (state, acion) => {
-      return [...state, acion.payload];
+    [Type.ADD_REGISTRATION_REQUEST]: (state, action) => {
+      return {...state, ...action.payload};
+    },
+    [Type.ADD_REGISTRATION_FAILURE]: (state, action) => {
+      return {...state, ...action.payload}
+    },
+    [Type.ADD_REGISTRATION_SUCCESS]: (state , action) => {
+      return {...state, ...action.payload}
     }
-    // [Types.ADD_TODO]: (state, action) => {}
   },
-  initialState
+  RegistrationInitalState
 );

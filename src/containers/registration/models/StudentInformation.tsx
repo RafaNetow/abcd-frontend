@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
-import State from './model'
+import {RegistrationState, RegistrationInitalState} from '../store/state'
 import {FormComponentProps} from 'antd/lib/form/Form';
+import {addRegistrationRequest} from "../store/actions"
 
 import {
     Select,
@@ -14,86 +15,112 @@ import {
     Radio,
     Checkbox
   } from "antd";
+import { connect } from 'react-redux';
+import RootState from '../../../state';
+import { allSettled } from 'q';
   const { Option } = Select;
 
-  
+  interface StateProps extends RegistrationState, FormComponentProps{
+
+  }
 
 
-  class StudentInformation extends React.Component <FormComponentProps, State>{
-   
+  class StudentInformation extends React.Component <FormComponentProps, RegistrationState>{
+
+
+
+    mutateRegistrationState(name:string, value : String, isDate: boolean)  {
+      let { registration} = this.state;
+      let newValue;
+      (isDate) ? newValue = new Date(value.toString()) : value;
+      let newState = {
+        ...registration,
+          [name]: newValue
+      }
+     
+      return newState; 
+    }
+
+
     handlerChangeDeDondeProviene(event:ChangeEvent<HTMLInputElement>) {
       this.setState({
-        provinencia: event.target.value
-
+        registration: this.mutateRegistrationState('provincia', event.target.value, false)
       });
     }
-    handlerChangeInstitutoAnterior(event:ChangeEvent<HTMLInputElement>) {
+    handlerChangeInstitutoAnterior(institutoAnterior:String) {
       this.setState({
-        institutoAnterior: event.target.value
-
+        registration:this.mutateRegistrationState('institutoAnterior',institutoAnterior, false)
       });
     }
    
     handleChangeNoCuenta (event:ChangeEvent<HTMLInputElement>) {
       this.setState({
-        noCuenta: event.target.value
+        registration:this.mutateRegistrationState('noCuenta',event.target.value, false)
       });
    }
   
-   handlerChangeSeccion(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeSeccion(seccion:String) {
     this.setState({
-      seccion: event.target.value
+      registration:this.mutateRegistrationState('seccion',seccion, false)
     });
    }
   
   
-   handlerChangeModalidad(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeModalidad(modalidad:String) {
     this.setState({
-      modalidad: event.target.value
+      registration:this.mutateRegistrationState('modalidad',modalidad, false)
     });
    }
   
    handlerChangerMatriculaYear(event:ChangeEvent<HTMLInputElement>) {
     this.setState({
-      matrDate: new Date(event.target.value)
+      registration:this.mutateRegistrationState('matrDate',event.target.value,true)
     });
    }
   
    handlerChangeRne(event:ChangeEvent<HTMLInputElement>) {
     this.setState({
-      rne: event.target.value
+      registration:this.mutateRegistrationState('rne',event.target.value,false)
     });
    }
   
    handlerChangeName(event:ChangeEvent<HTMLInputElement>) {
     this.setState({
-      name: event.target.value
+      registration:this.mutateRegistrationState('name',event.target.value,false)
     });
    }
   
-   handlerChangeBirthDate(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeBirthDate(event:String) {
       this.setState({
-        date: new Date(event.target.value)
+        registration:this.mutateRegistrationState('name',event,true)
       });
    }
   
    handlerChangeLastName(event:ChangeEvent<HTMLInputElement>) {
     this.setState({
-      lastname: event.target.value
+      registration:this.mutateRegistrationState('lastname',event.target.value,false)
     });
    }
   
-   handlerChangeCurso(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeCurso(curso:String) {
     this.setState({
-      curso: event.target.value
+      registration:this.mutateRegistrationState('curso',curso,false)
     });
    }
   
-   handlerCurrentPapers(event:ChangeEvent<HTMLInputElement>) {
+   handlerPapelesActuales(paper:String) {
     this.setState({
-      paper: event.target.value
+      registration:this.mutateRegistrationState('curso',paper,false)
     });
    }
+
+   handlerCurrentDocuments(documents:any) {
+     console.log(documents);
+     this.setState({
+      registration:this.mutateRegistrationState('curso','sasd',false)
+     })
+   }
+
   
 
     render() {
@@ -112,7 +139,7 @@ import {
         };
         const { getFieldDecorator } = this.props.form;
     
-    
+        console.log(this.state);
     
         return (
           <Form>
@@ -122,7 +149,7 @@ import {
                   {getFieldDecorator("num_cuenta",
                     {
                       rules: requireRule,
-                      initialValue: this.state.noCuenta
+                      initialValue: this.state.registration.noCuenta
                       
                     }  
                     
@@ -137,7 +164,7 @@ import {
                 <Form.Item label="Anio de matricula">
                   {getFieldDecorator("Anio de matricula", {
                     rules:requireRule,
-                    initialValue: this.state.matricula
+                    initialValue: this.state.registration.matricula
                   })(
                     <AutoComplete placeholder="matricula">
                       <Input onChange = {(e) => this.handlerChangerMatriculaYear(e)}  />
@@ -148,7 +175,7 @@ import {
                 <Form.Item label="RNE">
                   {getFieldDecorator("rne", {
                     rules:requireRule,
-                    initialValue: this.state.rne,
+                    initialValue: this.state.registration.rne,
                    
                   }
                   )(
@@ -164,7 +191,7 @@ import {
                 <Form.Item label="Nombres">
                   {getFieldDecorator("nombres", {
                     rules:requireRule,
-                    initialValue: this.state.name
+                    initialValue: this.state.registration.name
                   })(
                     <AutoComplete placeholder="Nombres">
                       <Input onChange = {(e) => this.handlerChangeName(e)}/>
@@ -181,7 +208,7 @@ import {
                         message: "Este campo es requerido"
                       }
                     ],
-                    initialValue: this.state.name,
+                    initialValue: this.state.registration.lastname,
                   })(
                     <AutoComplete placeholder="Apellidos">
                       <Input onChange = {(e) => this.handlerChangeLastName(e)}/>
@@ -195,7 +222,7 @@ import {
                     rules:requireRule,
                        
                   })(
-                      <DatePicker onChange = {(e) => this.handlerChangeBirthDate(e)}/> 
+                      <DatePicker onChange = {(e) => this.handlerChangeBirthDate(String(e))}/> 
                   )}
                 </Form.Item>
               </Col>
@@ -206,7 +233,7 @@ import {
                   {getFieldDecorator("curso", {
                     rules: [{ required: true, message: "Seleccione una modalidad" }]
                   })(
-                    <Select placeholder="Selecione el curso" onChange = {(e) => this.handlerChangeCurso(e)}>
+                    <Select placeholder="Selecione el curso" onChange = {(e) => this.handlerChangeCurso(String(e))}>
                       <Option value="curso1">Curso 1</Option>
                     </Select>
                   )}
@@ -217,7 +244,7 @@ import {
                   {getFieldDecorator("Modalidad", {
                     rules: [{ required: true, message: "Seleccione una modalidad" }]
                   })(
-                    <Select placeholder="Selecione una modalidad" onChange = {(e) => this.handlerChangeModalidad(e)}>
+                    <Select placeholder="Selecione una modalidad" onChange = {(e) => this.handlerChangeModalidad(String(e))}>
                       <Option value="modalidad1">Modalidad 1</Option>
                     </Select>
                   )}
@@ -228,7 +255,7 @@ import {
                   {getFieldDecorator("Seccion", {
                     rules: [{ required: true, message: "Seleccione una seccion" }]
                   })(
-                    <Select placeholder="Selecione una seccion" onChange = {(e) => this.handlerChangeSeccion(e)}>
+                    <Select placeholder="Selecione una seccion" onChange = {(e) => this.handlerChangeSeccion(String(e))}>
                       <Option value="seccion1">Seccion 1</Option>
                     </Select>
                   )}
@@ -241,7 +268,7 @@ import {
                   {getFieldDecorator("Instituto anterior", {
                     rules: [{ required: true, message: "Seleccione el instituto" }]
                   })(
-                    <Select placeholder="Seleccione el instituto" onChange = {(e) => this.handlerChangeInstitutoAnterior(e)}>
+                    <Select placeholder="Seleccione el instituto" onChange = {(e) => this.handlerChangeInstitutoAnterior(String(e))}>
                       <Option value="instituto1">instituto 1</Option>
                     </Select>
                   )}
@@ -253,7 +280,7 @@ import {
 
               })(
                 
-                <Radio.Group onChange = {(s) => this.handlerPapelesActuales(s)}>
+                <Radio.Group onChange = {(s) => this.handlerPapelesActuales(String(s))}>
                   <Radio value="repite">repite</Radio>
                   <Radio value="traslado">viene de traslado</Radio>
                   <Radio value="desertor">desertor</Radio>
@@ -267,7 +294,7 @@ import {
             <Form.Item label="Documentos que presentan">
               {getFieldDecorator('checkbox-group', {
               })(
-                <Checkbox.Group style={{ width: '100%' }} onChange = {(s) => this.handlerCurrentPapers(s)} > 
+                <Checkbox.Group style={{ width: '100%' }} onChange = {(s) => this.handlerCurrentDocuments((s))} > 
                   <Row>
                     <Col span={8}>
                       <Checkbox value="A">Certificado de sexto Grado</Checkbox>
@@ -303,3 +330,17 @@ import {
 const StudentInformationForm = Form.create({ name: "register" })(
     StudentInformation
 );
+
+function mapStateToProps(state: RootState) {
+  return {
+    ficha: state.ficha
+  }
+}
+
+function mapDispatchToProps() {
+  return {
+     addRegistrationRequest
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(StudentInformationForm)

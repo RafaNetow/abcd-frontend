@@ -1,13 +1,13 @@
 import Registration from './model'
 
 
-export interface FichaState {
+export interface RegistrationState {
     isFetching: boolean;
     errorMessage: string;
     registration: Registration;
 }
 
-export const RegistrationInitalState: FichaState  ={
+export const RegistrationInitalState: RegistrationState  ={
     registration: {
       noCuenta: '',
       rne: '', 

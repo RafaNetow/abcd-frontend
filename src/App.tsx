@@ -1,12 +1,14 @@
 import React from "react";
-import ref from "./containers/References/References";
+// import ref from "./containers/references/References";
 import "./App.css";
 import TodoList from "./containers/TodoList";
+import Registration from "./containers/registration/models/StudentInformation"
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <TodoList />
+      sdfsdfdsf
+      <Registration/>
     </div>
   );
 };

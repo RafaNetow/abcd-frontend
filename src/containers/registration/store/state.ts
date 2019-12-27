@@ -1,6 +1,6 @@
 import Registration from './model'
 
-
+ 
 export interface RegistrationState {
     isFetching: boolean;
     errorMessage: string;

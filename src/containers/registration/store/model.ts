@@ -1,7 +1,6 @@
 export default interface RegisterModel {
       noCuenta: String,
       rne: String, 
-      matricula:String,
       name: String,
       lastname: String,
       date: Date,

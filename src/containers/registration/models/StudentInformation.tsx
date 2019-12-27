@@ -32,7 +32,6 @@ export interface Props extends FormComponentProps {
     state: RegisrationModel= {
       noCuenta: '',
       rne: '', 
-      matricula:'',
       name: '',
       lastname: '',
       date: new Date(),
@@ -46,9 +45,6 @@ export interface Props extends FormComponentProps {
       paper:''    
 
     }
-
-
-
     // mutateRegistrationState(name:string, value : String, isDate: boolean)  {
     //   let { registration} = this.state;
     //   let newValue;
@@ -73,10 +69,9 @@ export interface Props extends FormComponentProps {
       });
     }
    
-    handleChangeNoCuenta = (event:ChangeEvent<HTMLInputElement>) => {
-      console.log("...",event)
+    handleChangeNoCuenta = (event:String) => {
       this.setState({
-        noCuenta:event.target.value, 
+        noCuenta:event, 
       });
    }
   
@@ -93,33 +88,35 @@ export interface Props extends FormComponentProps {
     });
    }
   
-   handlerChangerMatriculaYear(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangerMatriculaYear(event:String) {
+     console.log(event)
     this.setState({
-      matrDate: new Date (event.target.value)
+      matrDate: new Date (event.toString())
     });
    }
   
-   handlerChangeRne(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeRne(rne:String) {
     this.setState({
-      rne:event.target.value,
+      rne,
     });
    }
   
-   handlerChangeName(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeName(event:String) {
     this.setState({
-      name:event.target.value,
+      name:event
     });
    }
   
    handlerChangeBirthDate(event:String) {
       this.setState({
-        name:event,
+        date:new Date(event.toString()),
       });
    }
   
-   handlerChangeLastName(event:ChangeEvent<HTMLInputElement>) {
+   handlerChangeLastName(event:String) {
+    console.log(event);
     this.setState({
-      lastname:event.target.value,
+      lastname:event
     });
    }
   
@@ -175,8 +172,8 @@ export interface Props extends FormComponentProps {
                     }  
                     
                   )(
-                    <AutoComplete placeholder="no cuenta">
-                      <Input onChange={this.handleChangeNoCuenta}  />
+                    <AutoComplete placeholder="no cuenta" onChange = {(e) => this.handleChangeNoCuenta(String(e))}>
+                      <Input/>
                     </AutoComplete>
                   )}
                 </Form.Item>
@@ -185,10 +182,10 @@ export interface Props extends FormComponentProps {
                 <Form.Item label="Anio de matricula">
                   {getFieldDecorator("Anio de matricula", {
                     rules:requireRule,
-                    initialValue: this.state.matricula
+                    initialValue: this.state.matrDate
                   })(
-                    <AutoComplete placeholder="matricula">
-                      <Input onChange = {(e) => this.handlerChangerMatriculaYear(e)}  />
+                    <AutoComplete placeholder="matricula" onChange = {(e) => this.handlerChangerMatriculaYear(String(e))}>
+                      <DatePicker/> 
                     </AutoComplete>)}
                 </Form.Item>
               </Col>
@@ -200,8 +197,8 @@ export interface Props extends FormComponentProps {
                    
                   }
                   )(
-                    <AutoComplete placeholder="rne">
-                      <Input  onChange = {(s) => this.handlerChangeRne(s)}/>
+                    <AutoComplete placeholder="rne" onChange = {(s) => this.handlerChangeRne(String(s))}>
+                      <Input  />
                     </AutoComplete>
                   )}
                 </Form.Item>
@@ -214,8 +211,8 @@ export interface Props extends FormComponentProps {
                     rules:requireRule,
                     initialValue: this.state.name
                   })(
-                    <AutoComplete placeholder="Nombres">
-                      <Input onChange = {(e) => this.handlerChangeName(e)}/>
+                    <AutoComplete placeholder="Nombres" onChange = {(e) => this.handlerChangeName(String(e))}>
+                      <Input />
                     </AutoComplete>
                   )}
                 </Form.Item>
@@ -231,8 +228,8 @@ export interface Props extends FormComponentProps {
                     ],
                     initialValue: this.state.lastname,
                   })(
-                    <AutoComplete placeholder="Apellidos">
-                      <Input onChange = {(e) => this.handlerChangeLastName(e)}/>
+                    <AutoComplete placeholder="Apellidos"  onChange = {(e) => this.handlerChangeLastName(String(e))}>
+                      <Input/>
                     </AutoComplete>
                   )}
                 </Form.Item>

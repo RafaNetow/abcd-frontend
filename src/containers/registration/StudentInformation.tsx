@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react';
-import {RegistrationState, RegistrationInitalState} from '../store/state'
+import {RegistrationState, RegistrationInitalState} from './store/state'
 import {FormComponentProps} from 'antd/lib/form/Form';
-import {addRegistrationRequest} from "../store/actions"
-import RegisrationModel from "../store/model"
+import {addRegistrationRequest} from "./store/actions"
+import RegisrationModel from "./store/model"
 import { bindActionCreators, Dispatch } from 'redux';
 
 import {
@@ -18,7 +18,7 @@ import {
     Checkbox
   } from "antd";
 import { connect } from 'react-redux';
-import RootState from '../../../state';
+import RootState from '../../state';
 import { allSettled } from 'q';
   const { Option } = Select;
 

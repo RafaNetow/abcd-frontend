@@ -7,7 +7,6 @@ import {
   Input,
   Tooltip,
   Icon,
-  Cascader,
   Select,
   DatePicker,
   Col,
@@ -15,6 +14,8 @@ import {
   Button,
   AutoComplete
 } from "antd";
+
+const { TextArea } = Input;
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -57,7 +58,8 @@ const residences = [
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
-    autoCompleteResult: []
+    autoCompleteResult: [],
+    loading: false
   };
 
   handleSubmit = e => {
@@ -219,6 +221,41 @@ class RegistrationForm extends React.Component {
             </AutoComplete>
           )}
         </Form.Item>
+        <Form.Item label="Genero">
+          {getFieldDecorator("Genero", {
+            rules
+          })(
+            <AutoComplete
+              onChange={this.handleWebsiteChange}
+              placeholder="Genero"
+            >
+              <DatePicker />
+            </AutoComplete>
+          )}
+        </Form.Item>
+        <Form.Item label="Nacionalidad" hasFeedback>
+          {getFieldDecorator("nacionalidad", {
+            rules
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item label="Direccion" hasFeedback>
+          {getFieldDecorator("direccion", {
+            rules
+          })(<TextArea rows={4} />)}
+        </Form.Item>
+        <Form.Item label="Telefono" hasFeedback>
+          {getFieldDecorator("telefono", {
+            rules
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item label="Tipo de sangre" hasFeedback>
+          {getFieldDecorator("tipo de sangre", {
+            rules
+          })(<Input />)}
+        </Form.Item>
+        <Button type="primary" loading={this.state.loading}>
+          Guardar Ficha
+        </Button>
       </Form>
     );
   }

@@ -2,107 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "./index.css";
-import {
-  Form,
-  Input,
-  Tooltip,
-  Icon,
-  Select,
-  DatePicker,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete
-} from "antd";
+import { Form, Input, DatePicker, Button, AutoComplete } from "antd";
+import { FormComponentProps } from "antd/lib/form";
 
 const { TextArea } = Input;
 
-const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [
-  {
-    value: "zhejiang",
-    label: "Zhejiang",
-    children: [
-      {
-        value: "hangzhou",
-        label: "Hangzhou",
-        children: [
-          {
-            value: "xihu",
-            label: "West Lake"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    value: "jiangsu",
-    label: "Jiangsu",
-    children: [
-      {
-        value: "nanjing",
-        label: "Nanjing",
-        children: [
-          {
-            value: "zhonghuamen",
-            label: "Zhong Hua Men"
-          }
-        ]
-      }
-    ]
-  }
-];
-
-class RegistrationForm extends React.Component {
+export interface Props extends FormComponentProps {}
+class RegistrationForm extends React.Component<Props> {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
     loading: false
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-      }
-    });
-  };
-
-  handleConfirmBlur = e => {
-    const { value } = e.target;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  };
-
-  compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && value !== form.getFieldValue("password")) {
-      callback("Two passwords that you enter is inconsistent!");
-    } else {
-      callback();
-    }
-  };
-
-  validateToNextPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && this.state.confirmDirty) {
-      form.validateFields(["confirm"], { force: true });
-    }
-    callback();
-  };
-
-  handleWebsiteChange = value => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = [".com", ".org", ".net"].map(
-        domain => `${value}${domain}`
-      );
-    }
-    this.setState({ autoCompleteResult });
   };
 
   render() {
@@ -119,18 +31,6 @@ class RegistrationForm extends React.Component {
         sm: { span: 16 }
       }
     };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0
-        },
-        sm: {
-          span: 16,
-          offset: 8
-        }
-      }
-    };
 
     let rules = [
       {
@@ -138,21 +38,13 @@ class RegistrationForm extends React.Component {
         message: "este campo es requerido"
       }
     ];
-    const prefixSelector = getFieldDecorator("prefix", {
-      initialValue: "86"
-    })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    );
 
     const websiteOptions = autoCompleteResult.map(website => (
       <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
     ));
 
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout}>
         <Form.Item label="Numero de cuenta" hasFeedback>
           {getFieldDecorator("numeroCuenta", {
             rules
@@ -188,7 +80,6 @@ class RegistrationForm extends React.Component {
           })(
             <AutoComplete
               dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
               placeholder="Lugar de nacimiento"
             >
               <Input />
@@ -201,7 +92,6 @@ class RegistrationForm extends React.Component {
           })(
             <AutoComplete
               dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
               placeholder="Lugar de nacimiento"
             >
               <Input />
@@ -214,7 +104,6 @@ class RegistrationForm extends React.Component {
           })(
             <AutoComplete
               dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
               placeholder="Lugar de nacimiento"
             >
               <DatePicker />
@@ -225,10 +114,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("Genero", {
             rules
           })(
-            <AutoComplete
-              onChange={this.handleWebsiteChange}
-              placeholder="Genero"
-            >
+            <AutoComplete placeholder="Genero">
               <DatePicker />
             </AutoComplete>
           )}

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "./index.css";
 import { Form, Input, DatePicker, Button, AutoComplete } from "antd";
+import FichaModel from "./store/model";
 import { FormComponentProps } from "antd/lib/form";
 
 const { TextArea } = Input;
@@ -11,7 +12,18 @@ const AutoCompleteOption = AutoComplete.Option;
 
 export interface Props extends FormComponentProps {}
 class RegistrationForm extends React.Component<Props> {
-  state = {
+  state: FichaModel = {
+    noCuenta: "",
+    rne: "",
+    apellido: "",
+    lugarDeNacimiento: "",
+    fechaDeNacimiento: new Date(),
+    edad: "",
+    genero: false,
+    nacionalidad: "",
+    direccion: "",
+    telefono: "",
+    tipoDeSangre: "",
     confirmDirty: false,
     autoCompleteResult: [],
     loading: false

@@ -1,26 +1,28 @@
 import Ficha from "./model";
 
-export interface RegistrationState {
+export interface FichaState {
   isFetching: boolean;
   errorMessage: string;
-  registration: Ficha;
+  ficha: Ficha;
 }
 
-export const RegistrationInitalState: RegistrationState = {
-  registration: {
+export const FichaInitalState: FichaState = {
+  ficha: {
     noCuenta: "",
     rne: "",
-    name: "",
-    lastname: "",
-    date: new Date(),
-    matrDate: new Date(),
-    curso: " ",
-    modalidad: "",
-    institutoAnterior: "",
-    seccion: "",
-    provinencia: "",
-    documentos: [],
-    paper: ""
+    nombre: "",
+    apellido: "",
+    lugarDeNacimiento: "",
+    fechaDeNacimiento: new Date(),
+    edad: "",
+    genero: false,
+    nacionalidad: "",
+    direccion: "",
+    telefono: "",
+    tipoDeSangre: "",
+    loading: false,
+    confirmDirty: false,
+    autoCompleteResult: []
   },
   isFetching: false,
   errorMessage: ""

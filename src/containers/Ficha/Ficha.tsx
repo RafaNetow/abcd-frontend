@@ -11,11 +11,13 @@ const { TextArea } = Input;
 const AutoCompleteOption = AutoComplete.Option;
 
 export interface Props extends FormComponentProps {}
-class RegistrationForm extends React.Component<Props> {
+class FichaForm extends React.Component<Props, FichaModel> {
   state: FichaModel = {
     noCuenta: "",
     rne: "",
     apellido: "",
+    correo: "",
+    nombre: "",
     lugarDeNacimiento: "",
     fechaDeNacimiento: new Date(),
     edad: "",
@@ -29,6 +31,23 @@ class RegistrationForm extends React.Component<Props> {
     loading: false
   };
 
+  handleChangeApellido = (apellido: String) => [
+    this.setState({
+      apellido
+    })
+  ];
+
+  handleChangeNoCuenta = (noCuenta: String) => {
+    this.setState({
+      noCuenta
+    });
+  };
+
+  handleChangeName = (nombre: String) => {
+    this.setState({
+      nombre
+    });
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
@@ -54,13 +73,19 @@ class RegistrationForm extends React.Component<Props> {
     const websiteOptions = autoCompleteResult.map(website => (
       <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
     ));
-
     return (
       <Form {...formItemLayout}>
         <Form.Item label="Numero de cuenta" hasFeedback>
           {getFieldDecorator("numeroCuenta", {
             rules
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="no cuenta"
+              onChange={e => this.handleChangeNoCuenta(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="E-mail">
           {getFieldDecorator("email", {
@@ -74,49 +99,58 @@ class RegistrationForm extends React.Component<Props> {
                 message: "Please input your E-mail!"
               }
             ]
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="email"
+              onChange={e => this.handlerChangeEmail(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="Nombre" hasFeedback>
           {getFieldDecorator("nombre", {
             rules
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="nombre"
+              onChange={e => this.handlerChangeNombre(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="Apellido" hasFeedback>
           {getFieldDecorator("apellido", {
             rules
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="apellido"
+              onChange={e => this.handlerChangeApellido(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="Lugar de nacimiento">
           {getFieldDecorator("lugarDeNacimiento", {
             rules
           })(
             <AutoComplete
-              dataSource={websiteOptions}
-              placeholder="Lugar de nacimiento"
+              placeholder="lugar de nacimiento"
+              onChange={e => this.handlerChangeLugarDeNacimiento(String(e))}
             >
               <Input />
             </AutoComplete>
           )}
         </Form.Item>
         <Form.Item label="Fecha de nacimiento">
-          {getFieldDecorator("lugarDeNacimiento", {
+          {getFieldDecorator("fecha de nacimiento", {
             rules
           })(
             <AutoComplete
-              dataSource={websiteOptions}
-              placeholder="Lugar de nacimiento"
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </Form.Item>
-        <Form.Item label="Fecha de nacimiento">
-          {getFieldDecorator("lugarDeNacimiento", {
-            rules
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              placeholder="Lugar de nacimiento"
+              placeholder="fecha de nacimiento"
+              onChange={e => this.handlerChangeFechaDeNacimiento(String(e))}
             >
               <DatePicker />
             </AutoComplete>
@@ -134,22 +168,50 @@ class RegistrationForm extends React.Component<Props> {
         <Form.Item label="Nacionalidad" hasFeedback>
           {getFieldDecorator("nacionalidad", {
             rules
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="nacionalidad"
+              onChange={e => this.handlerChangeNacionalidad(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="Direccion" hasFeedback>
           {getFieldDecorator("direccion", {
             rules
-          })(<TextArea rows={4} />)}
+          })(
+            <AutoComplete
+              placeholder="direcciòn"
+              onChange={e => this.handlerChangeDireccion(String(e))}
+            >
+              <TextArea rows={4} />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="Telefono" hasFeedback>
           {getFieldDecorator("telefono", {
             rules
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="direcciòn"
+              onChange={e => this.handlerChangeTelefono(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Form.Item label="Tipo de sangre" hasFeedback>
           {getFieldDecorator("tipo de sangre", {
             rules
-          })(<Input />)}
+          })(
+            <AutoComplete
+              placeholder="Tipo de sangre"
+              onChange={e => this.handlerChangeTipoDeSangre(String(e))}
+            >
+              <Input />
+            </AutoComplete>
+          )}
         </Form.Item>
         <Button type="primary" loading={this.state.loading}>
           Guardar Ficha
@@ -157,11 +219,46 @@ class RegistrationForm extends React.Component<Props> {
       </Form>
     );
   }
+  handlerChangeTipoDeSangre(tipoDeSangre: string): void {
+    this.setState({
+      tipoDeSangre
+    });
+  }
+  handlerChangeTelefono(telefono: string): void {
+    this.setState({
+      telefono
+    });
+  }
+  handlerChangeDireccion(direccion: string): void {
+    this.setState({
+      direccion
+    });
+  }
+  handlerChangeNacionalidad(nacionalidad: string): void {
+    this.setState({
+      nacionalidad
+    });
+  }
+  handlerChangeLugarDeNacimiento(lugarDeNacimiento: string): void {
+    this.setState({ lugarDeNacimiento });
+  }
+  handlerChangeFechaDeNacimiento(fechaDeNacimiento: String): void {
+    this.setState({
+      fechaDeNacimiento: new Date(fechaDeNacimiento.toString())
+    });
+  }
+  handlerChangeApellido(apellido: string): void {
+    this.setState({ apellido });
+  }
+  handlerChangeNombre(nombre: string): void {
+    this.setState({ nombre });
+  }
+  handlerChangeEmail(correo: string): void {
+    this.setState({ correo });
+  }
 }
 
-const WrappedRegistrationForm = Form.create({ name: "register" })(
-  RegistrationForm
-);
+const WrappedRegistrationForm = Form.create({ name: "ficha" })(FichaForm);
 
 ReactDOM.render(
   <WrappedRegistrationForm />,

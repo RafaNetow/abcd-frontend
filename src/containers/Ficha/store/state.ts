@@ -12,6 +12,7 @@ export const FichaInitalState: FichaState = {
     rne: "",
     nombre: "",
     apellido: "",
+    correo: "",
     lugarDeNacimiento: "",
     fechaDeNacimiento: new Date(),
     edad: "",

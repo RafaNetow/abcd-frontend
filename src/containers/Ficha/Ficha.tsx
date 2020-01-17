@@ -5,12 +5,18 @@ import "./index.css";
 import { Form, Input, DatePicker, Button, AutoComplete } from "antd";
 import FichaModel from "./store/model";
 import { FormComponentProps } from "antd/lib/form";
+import { bindActionCreators, Dispatch } from "redux";
+import { connect } from "react-redux";
+import RootState from "../../state";
+import { addFichanRequest } from "./store/actions";
 
 const { TextArea } = Input;
 
 const AutoCompleteOption = AutoComplete.Option;
 
-export interface Props extends FormComponentProps {}
+export interface Props extends FormComponentProps {
+  addFichanRequest(state: FichaModel): void;
+}
 class FichaForm extends React.Component<Props, FichaModel> {
   state: FichaModel = {
     noCuenta: "",
@@ -258,9 +264,21 @@ class FichaForm extends React.Component<Props, FichaModel> {
   }
 }
 
-const WrappedRegistrationForm = Form.create({ name: "ficha" })(FichaForm);
+const Ficha = Form.create({ name: "ficha" })(FichaForm);
 
-ReactDOM.render(
-  <WrappedRegistrationForm />,
-  document.getElementById("container")
-);
+function mapStateToProps(state: RootState) {
+  return {
+    ficha: state.ficha
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  return bindActionCreators(
+    {
+      addFichanRequest
+    },
+    dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ficha);

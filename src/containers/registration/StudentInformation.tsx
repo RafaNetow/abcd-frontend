@@ -357,7 +357,7 @@ const StudentInformationForm = Form.create({ name: "register" })(
 
 function mapStateToProps(state: RootState) {
   return {
-    ficha: state.ficha
+    registration: state.registration
   };
 }
 

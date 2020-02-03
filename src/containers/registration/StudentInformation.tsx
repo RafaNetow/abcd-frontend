@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from "react";
-import { RegistrationState, RegistrationInitalState } from "../store/state";
+import { RegistrationState, RegistrationInitalState } from "./store/state";
 import { FormComponentProps } from "antd/lib/form/Form";
-import { addRegistrationRequest } from "../store/actions";
-import RegisrationModel from "../store/model";
+import { addRegistrationRequest } from "./store/actions";
+import RegisrationModel from "./store/model";
 import { bindActionCreators, Dispatch } from "redux";
 
 import {
@@ -15,16 +15,10 @@ import {
   AutoComplete,
   DatePicker,
   Radio,
-  Checkbox,
-  Layout,
-  Menu,
-  Breadcrumb,
-  Icon
+  Checkbox
 } from "antd";
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
 import { connect } from "react-redux";
-import RootState from "../../../state";
+import RootState from "../../state";
 import { allSettled } from "q";
 const { Option } = Select;
 
@@ -48,23 +42,6 @@ class StudentInformation extends React.Component<Props, RegisrationModel> {
     documentos: [],
     paper: ""
   };
-  // mutateRegistrationState(name:string, value : String, isDate: boolean)  {
-  //   let { registration} = this.state;
-  //   let newValue;
-  //   (isDate) ? newValue = new Date(value.toString()) : value;
-  //   let newState = {
-  //     ...registration,
-  //       [name]: newValue
-  //   }
-
-  //   return newState;
-  // }
-
-  // handlerChangeDeDondeProviene(event:ChangeEvent<HTMLInputElement>) {
-  //   this.setState({
-  //     ...this.state, provincia: event.target.value,
-  //   });
-  // }
   handlerChangeInstitutoAnterior(institutoAnterior: String) {
     this.setState({
       institutoAnterior: institutoAnterior
@@ -163,49 +140,6 @@ class StudentInformation extends React.Component<Props, RegisrationModel> {
       <Form>
         <Row>
           <Col span={8}>
-            <Form.Item label="No Cuenta">
-              {getFieldDecorator("num_cuenta", {
-                rules: requireRule,
-                initialValue: this.state.noCuenta
-              })(
-                <AutoComplete
-                  placeholder="no cuenta"
-                  onChange={e => this.handleChangeNoCuenta(String(e))}
-                >
-                  <Input />
-                </AutoComplete>
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label="Anio de matricula">
-              {getFieldDecorator("Anio de matricula", {
-                rules: requireRule
-              })(
-                <DatePicker
-                  onChange={e => this.handlerChangeBirthDate(String(e))}
-                />
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label="RNE">
-              {getFieldDecorator("rne", {
-                rules: requireRule,
-                initialValue: this.state.rne
-              })(
-                <AutoComplete
-                  placeholder="rne"
-                  onChange={s => this.handlerChangeRne(String(s))}
-                >
-                  <Input />
-                </AutoComplete>
-              )}
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={8}>
             <Form.Item label="Nombres">
               {getFieldDecorator("nombres", {
                 rules: requireRule,
@@ -240,78 +174,14 @@ class StudentInformation extends React.Component<Props, RegisrationModel> {
               )}
             </Form.Item>
           </Col>
-          <Col span={8}>
-            <Form.Item label="Fecha de nacimiento">
-              {getFieldDecorator("date-picker", {
-                rules: requireRule
-              })(
-                <DatePicker
-                  onChange={e => this.handlerChangeBirthDate(String(e))}
-                />
-              )}
-            </Form.Item>
-          </Col>
         </Row>
         <Row>
           <Col span={8}>
-            <Form.Item label="Curso" hasFeedback>
-              {getFieldDecorator("curso", {
-                rules: [{ required: true, message: "Seleccione una modalidad" }]
-              })(
-                <Select
-                  placeholder="Selecione el curso"
-                  onChange={e => this.handlerChangeCurso(String(e))}
-                >
-                  <Option value="curso1">Curso 1</Option>
-                </Select>
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label="Modalidad" hasFeedback>
-              {getFieldDecorator("Modalidad", {
-                rules: [{ required: true, message: "Seleccione una modalidad" }]
-              })(
-                <Select
-                  placeholder="Selecione una modalidad"
-                  onChange={e => this.handlerChangeModalidad(String(e))}
-                >
-                  <Option value="modalidad1">Modalidad 1</Option>
-                </Select>
-              )}
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label="Seccion" hasFeedback>
-              {getFieldDecorator("Seccion", {
-                rules: [{ required: true, message: "Seleccione una seccion" }]
-              })(
-                <Select
-                  placeholder="Selecione una seccion"
-                  onChange={e => this.handlerChangeSeccion(String(e))}
-                >
-                  <Option value="seccion1">Seccion 1</Option>
-                </Select>
-              )}
-            </Form.Item>
+            <Form.Item label="Curso" hasFeedback></Form.Item>
           </Col>
         </Row>
         <Row>Datos Academicos</Row>
         <Row>
-          <Col span={8}>
-            <Form.Item label="Instituto anterior" hasFeedback>
-              {getFieldDecorator("Instituto anterior", {
-                rules: [{ required: true, message: "Seleccione el instituto" }]
-              })(
-                <Select
-                  placeholder="Seleccione el instituto"
-                  onChange={e => this.handlerChangeInstitutoAnterior(String(e))}
-                >
-                  <Option value="instituto1">instituto 1</Option>
-                </Select>
-              )}
-            </Form.Item>
-          </Col>
           <Col span={8}>
             <Form.Item label="De donde proviene">
               {getFieldDecorator(
@@ -376,7 +246,7 @@ const StudentInformationForm = Form.create({ name: "register" })(
 
 function mapStateToProps(state: RootState) {
   return {
-    ficha: state.ficha
+    registration: state.ficha
   };
 }
 

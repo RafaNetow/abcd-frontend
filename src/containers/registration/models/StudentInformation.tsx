@@ -28,7 +28,7 @@ import RootState from "../../../state";
 import { allSettled } from "q";
 const { Option } = Select;
 
-export interface Props extends FormComponentProps {
+interface Props extends FormComponentProps {
   addRegistrationRequest(state: RegisrationModel): void;
 }
 

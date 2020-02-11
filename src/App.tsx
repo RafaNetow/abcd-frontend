@@ -1,12 +1,11 @@
 import React from "react";
 // import ref from "./containers/references/References";
 import "./App.css";
-import TodoList from "./containers/TodoList";
-import Registration from "./containers/registration/models/StudentInformation";
+
 import "antd/dist/antd.css";
 import { mainComponents } from "./data/static/mainComponent";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
-import { tsConstructorType } from "@babel/types";
+import { StudentInformation } from "./containers/registration/StudentInformation";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -15,6 +14,14 @@ interface IProps {}
 interface IState {
   currentComponent: string;
 }
+
+interface ComponentDictionary {
+  [name: string]: any;
+}
+
+const components: ComponentDictionary = {
+  ficha: <StudentInformation {...IProps} />
+};
 
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -27,8 +34,8 @@ class App extends React.Component<IProps, IState> {
   changeCurrentMainComponent = (component: any) => {
     console.log(component);
     let currentComponent = component.key;
-    console.log(currentComponent);
-    console.log(mainComponents);
+    console.log(currentComponent, ".......", mainComponents);
+    console.log(typeof mainComponents[currentComponent]);
     this.setState({ currentComponent });
   };
 
@@ -68,15 +75,12 @@ class App extends React.Component<IProps, IState> {
                 </Menu.Item>
                 <Menu.Item
                   onClick={this.changeCurrentMainComponent}
-                  key="generalInformation"
+                  key="ficha"
                 >
                   <Icon type="file-add" />
                   Nueva matricula
                 </Menu.Item>
-                <Menu.Item
-                  onClick={this.changeCurrentMainComponent}
-                  key="ficha"
-                >
+                <Menu.Item onClick={this.changeCurrentMainComponent} key="new">
                   <Icon type="file-add" />
                   Nueva Ficha
                 </Menu.Item>
@@ -121,7 +125,7 @@ class App extends React.Component<IProps, IState> {
                 minHeight: 500
               }}
             >
-              {mainComponents[this.state.currentComponent]}
+              mainComponents[this.state.currentComponent]}
             </Content>
           </Layout>
         </Layout>

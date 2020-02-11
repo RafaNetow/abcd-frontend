@@ -26,7 +26,10 @@ export interface Props extends FormComponentProps {
   addRegistrationRequest(state: RegisrationModel): void;
 }
 
-class StudentInformation extends React.Component<Props, RegisrationModel> {
+export class StudentInformation extends React.Component<
+  Props,
+  RegisrationModel
+> {
   state: RegisrationModel = {
     noCuenta: "",
     rne: "",

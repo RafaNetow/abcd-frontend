@@ -3,9 +3,8 @@ import React from "react";
 import "./App.css";
 
 import "antd/dist/antd.css";
-import { mainComponents } from "./data/static/mainComponent";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
-import { StudentInformation } from "./containers/registration/StudentInformation";
+import StudentInformation from "./containers/registration/StudentInformation";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -19,8 +18,8 @@ interface ComponentDictionary {
   [name: string]: any;
 }
 
-const components: ComponentDictionary = {
-  ficha: <StudentInformation {...IProps} />
+const mainComponents: ComponentDictionary = {
+  ficha: <StudentInformation />
 };
 
 class App extends React.Component<IProps, IState> {
@@ -125,7 +124,7 @@ class App extends React.Component<IProps, IState> {
                 minHeight: 500
               }}
             >
-              mainComponents[this.state.currentComponent]}
+              {mainComponents[this.state.currentComponent]}
             </Content>
           </Layout>
         </Layout>

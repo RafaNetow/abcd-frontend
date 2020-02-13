@@ -393,3 +393,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(StudentInformationForm);
+
+export { StudentInformation };

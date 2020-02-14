@@ -1,16 +1,15 @@
 import React, { ChangeEvent } from "react";
 import { RegistrationState, RegistrationInitalState } from "./store/state";
 import { FormComponentProps } from "antd/lib/form/Form";
-import { addRegistrationRequest } from "./store/actions";
 import RegisrationModel from "./store/model";
 import { bindActionCreators, Dispatch } from "redux";
+import { addRegistration } from "./store/actions";
 
 import {
   Select,
   Form,
   Col,
   Input,
-  Button,
   Row,
   AutoComplete,
   DatePicker,
@@ -23,7 +22,7 @@ import { allSettled } from "q";
 const { Option } = Select;
 
 export interface Props extends FormComponentProps {
-  addRegistrationRequest(state: RegisrationModel): void;
+  addRegistration(state: RegisrationModel): void;
 }
 
 export class StudentInformation extends React.Component<
@@ -122,7 +121,9 @@ export class StudentInformation extends React.Component<
   }
 
   onSubmit = () => {
-    this.props.addRegistrationRequest(this.state);
+    console.log(addRegistration);
+    console.log(this.props.addRegistration(this.state));
+    this.props.addRegistration(this.state);
   };
 
   render() {
@@ -362,7 +363,7 @@ function mapStateToProps(state: RootState) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      addRegistrationRequest
+      addRegistration
     },
     dispatch
   );

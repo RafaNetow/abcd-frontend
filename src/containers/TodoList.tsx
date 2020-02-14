@@ -9,18 +9,23 @@ interface Props {
   addTodo(name: string): void;
 }
 
-class TodoList extends Component<Props, {}> {
+interface State {
+  name: string;
+
+}
+
+class TodoList extends Component<Props, State> {
 
   state = {
-    todo: ""
+    name: ""
   }
 
   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ name: event.target.value })
+    this.setState({ name: event.target.value.toString() })
   }
 
   onClick = () => {
-    this.props.addTodo(this.state.todo);
+    this.props.addTodo(this.state.name);
   }
 
   render() {
@@ -32,9 +37,9 @@ class TodoList extends Component<Props, {}> {
             <li>{`name: ${name}, completed: ${completed ? "Yes" : "No"}`}</li>
           ))}
         </ul>
-        <br></br>
-        <br></br>
-        <br></br>
+        <br/>
+        <br/>
+        <br/>
         <input type="text" onChange={this.onChange}/>
         <button>Add</button>
       </div>

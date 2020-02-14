@@ -121,7 +121,6 @@ export class StudentInformation extends React.Component<
   }
 
   onSubmit = () => {
-    console.log(addRegistration);
     console.log(this.props.addRegistration(this.state));
     this.props.addRegistration(this.state);
   };

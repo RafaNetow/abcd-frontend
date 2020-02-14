@@ -114,9 +114,10 @@ export class StudentInformation extends React.Component<
   }
 
   handlerCurrentDocuments(documents: any) {
-    console.log(documents);
+    console.log(this.state.documentos);
+
     this.setState({
-      curso: "sasd"
+      documentos: documents
     });
   }
 
@@ -141,6 +142,49 @@ export class StudentInformation extends React.Component<
 
     return (
       <Form>
+        <Row>
+          <Col span={8}>
+            <Form.Item label="No Cuenta">
+              {getFieldDecorator("num_cuenta", {
+                rules: requireRule,
+                initialValue: this.state.noCuenta
+              })(
+                <AutoComplete
+                  placeholder="no cuenta"
+                  onChange={e => this.handleChangeNoCuenta(String(e))}
+                >
+                  <Input />
+                </AutoComplete>
+              )}
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item label="Anio de matricula">
+              {getFieldDecorator("Anio de matricula", {
+                rules: requireRule
+              })(
+                <DatePicker
+                  onChange={e => this.handlerChangeBirthDate(String(e))}
+                />
+              )}
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item label="RNE">
+              {getFieldDecorator("rne", {
+                rules: requireRule,
+                initialValue: this.state.rne
+              })(
+                <AutoComplete
+                  placeholder="rne"
+                  onChange={s => this.handlerChangeRne(String(s))}
+                >
+                  <Input />
+                </AutoComplete>
+              )}
+            </Form.Item>
+          </Col>
+        </Row>
         <Row>
           <Col span={8}>
             <Form.Item label="Nombres">
@@ -177,14 +221,78 @@ export class StudentInformation extends React.Component<
               )}
             </Form.Item>
           </Col>
+          <Col span={8}>
+            <Form.Item label="Fecha de nacimiento">
+              {getFieldDecorator("date-picker", {
+                rules: requireRule
+              })(
+                <DatePicker
+                  onChange={e => this.handlerChangeBirthDate(String(e))}
+                />
+              )}
+            </Form.Item>
+          </Col>
         </Row>
         <Row>
           <Col span={8}>
-            <Form.Item label="Curso" hasFeedback></Form.Item>
+            <Form.Item label="Curso" hasFeedback>
+              {getFieldDecorator("curso", {
+                rules: [{ required: true, message: "Seleccione una modalidad" }]
+              })(
+                <Select
+                  placeholder="Selecione el curso"
+                  onChange={e => this.handlerChangeCurso(String(e))}
+                >
+                  <Option value="curso1">Curso 1</Option>
+                </Select>
+              )}
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item label="Modalidad" hasFeedback>
+              {getFieldDecorator("Modalidad", {
+                rules: [{ required: true, message: "Seleccione una modalidad" }]
+              })(
+                <Select
+                  placeholder="Selecione una modalidad"
+                  onChange={e => this.handlerChangeModalidad(String(e))}
+                >
+                  <Option value="modalidad1">Modalidad 1</Option>
+                </Select>
+              )}
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item label="Seccion" hasFeedback>
+              {getFieldDecorator("Seccion", {
+                rules: [{ required: true, message: "Seleccione una seccion" }]
+              })(
+                <Select
+                  placeholder="Selecione una seccion"
+                  onChange={e => this.handlerChangeSeccion(String(e))}
+                >
+                  <Option value="seccion1">Seccion 1</Option>
+                </Select>
+              )}
+            </Form.Item>
           </Col>
         </Row>
         <Row>Datos Academicos</Row>
         <Row>
+          <Col span={8}>
+            <Form.Item label="Instituto anterior" hasFeedback>
+              {getFieldDecorator("Instituto anterior", {
+                rules: [{ required: true, message: "Seleccione el instituto" }]
+              })(
+                <Select
+                  placeholder="Seleccione el instituto"
+                  onChange={e => this.handlerChangeInstitutoAnterior(String(e))}
+                >
+                  <Option value="instituto1">instituto 1</Option>
+                </Select>
+              )}
+            </Form.Item>
+          </Col>
           <Col span={8}>
             <Form.Item label="De donde proviene">
               {getFieldDecorator(
@@ -217,9 +325,7 @@ export class StudentInformation extends React.Component<
                   <Checkbox value="A">Certificado de sexto Grado</Checkbox>
                 </Col>
                 <Col span={8}>
-                  <Checkbox disabled value="B">
-                    Tarjeta de Salud
-                  </Checkbox>
+                  <Checkbox value="B">Tarjeta de Salud</Checkbox>
                 </Col>
                 <Col span={8}>
                   <Checkbox value="C">Partida de nacimiento</Checkbox>

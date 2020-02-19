@@ -2,7 +2,7 @@ import { createAction } from "redux-actions";
 import { Type } from "./types";
 // import thunk from "redux-thunk";
 import { Dispatch } from "redux";
-import RegisrationModel from "../store/model";
+import RegisrationModel from "./model";
 
 export const addRegistrationRequest = createAction(
   Type.ADD_REGISTRATION_REQUEST

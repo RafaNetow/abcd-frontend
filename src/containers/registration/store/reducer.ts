@@ -4,7 +4,7 @@ import { RegistrationInitalState, RegistrationState } from "./state";
 
 import { Type } from "./types";
 
-export default handleActions<RegistrationState>(
+export const RegistrationReducer = handleActions<RegistrationState>(
   {
     [Type.ADD_REGISTRATION_REQUEST]: (state, action) => {
       console.log("redux is working ");

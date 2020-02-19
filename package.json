@@ -12,7 +12,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
-    "redux-actions": "^2.6.5"
+    "redux-actions": "^2.6.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",

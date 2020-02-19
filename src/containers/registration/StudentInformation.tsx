@@ -41,8 +41,7 @@ export class StudentInformation extends React.Component<
     institutoAnterior: "",
     seccion: "",
     provinencia: "",
-    documentos: [],
-    paper: ""
+    documentos: []
   };
   handlerChangeInstitutoAnterior(institutoAnterior: String) {
     this.setState({
@@ -106,9 +105,9 @@ export class StudentInformation extends React.Component<
     });
   }
 
-  handlerPapelesActuales(paper: String) {
+  handlerPapelesActuales(documentos: String[]) {
     this.setState({
-      curso: paper
+      documentos
     });
   }
 
@@ -322,22 +321,22 @@ export class StudentInformation extends React.Component<
             >
               <Row>
                 <Col span={8}>
-                  <Checkbox value="A">Certificado de sexto Grado</Checkbox>
+                  <Checkbox value="cs">Certificado de sexto Grado</Checkbox>
                 </Col>
                 <Col span={8}>
-                  <Checkbox value="B">Tarjeta de Salud</Checkbox>
+                  <Checkbox value="ts">Tarjeta de Salud</Checkbox>
                 </Col>
                 <Col span={8}>
-                  <Checkbox value="C">Partida de nacimiento</Checkbox>
+                  <Checkbox value="pn">Partida de nacimiento</Checkbox>
                 </Col>
                 <Col span={8}>
-                  <Checkbox value="D">Certificacion de estudio</Checkbox>
+                  <Checkbox value="ce">Certificacion de estudio</Checkbox>
                 </Col>
                 <Col span={8}>
-                  <Checkbox value="E">Fotografia</Checkbox>
+                  <Checkbox value="fa">Fotografia</Checkbox>
                 </Col>
                 <Col span={8}>
-                  <Checkbox value="E">Otros documentos</Checkbox>
+                  <Checkbox value="od">Otros documentos</Checkbox>
                 </Col>
               </Row>
             </Checkbox.Group>

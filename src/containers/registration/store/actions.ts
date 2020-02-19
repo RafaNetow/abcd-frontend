@@ -22,7 +22,7 @@ export function addRegistration(
     console.log(newRegister);
 
     try {
-      dispatch(addRegistrationRequest());
+      dispatch(addRegistrationRequest(newRegister));
       console.log(dispatch);
       console.log("thunk is working");
     } catch (error) {

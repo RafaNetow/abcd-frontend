@@ -8,6 +8,7 @@ export const RegistrationReducer = handleActions<RegistrationState>(
   {
     [Type.ADD_REGISTRATION_REQUEST]: (state, action) => {
       console.log("redux is working ");
+      console.log("action", action);
       return { ...state, ...action.payload };
     },
     [Type.ADD_REGISTRATION_FAILURE]: (state, action) => {

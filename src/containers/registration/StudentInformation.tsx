@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { RegistrationState, RegistrationInitalState } from "./store/state";
+
 import { FormComponentProps } from "antd/lib/form/Form";
 import RegisrationModel from "./store/model";
 import { bindActionCreators, Dispatch } from "redux";
@@ -18,7 +18,6 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import RootState from "../../state";
-import { allSettled } from "q";
 const { Option } = Select;
 
 export interface Props extends FormComponentProps {
@@ -105,7 +104,7 @@ export class StudentInformation extends React.Component<
     });
   }
 
-  handlerPapelesActuales(documentos: String[]) {
+  handlerPapelesActuales(documentos: any) {
     this.setState({
       documentos
     });
@@ -298,9 +297,7 @@ export class StudentInformation extends React.Component<
                 "radio-group",
                 {}
               )(
-                <Radio.Group
-                  onChange={s => this.handlerPapelesActuales(String(s))}
-                >
+                <Radio.Group onChange={s => this.handlerPapelesActuales(s)}>
                   <Radio value="repite">repite</Radio>
                   <Radio value="traslado">viene de traslado</Radio>
                   <Radio value="desertor">desertor</Radio>
@@ -354,7 +351,7 @@ const StudentInformationForm = Form.create({ name: "register" })(
 
 function mapStateToProps(state: RootState) {
   return {
-    registration: state.ficha
+    registration: state.registration
   };
 }
 

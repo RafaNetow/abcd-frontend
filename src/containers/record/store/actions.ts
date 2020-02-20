@@ -14,8 +14,6 @@ export function addRecord(
   return async (dispatch: Dispatch) => {
     try {
       dispatch(addRecordRequest(newRegister));
-      console.log(dispatch);
-      console.log("thunk is working");
     } catch (error) {
       console.log(error);
     }

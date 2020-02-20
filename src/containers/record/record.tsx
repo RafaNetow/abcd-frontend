@@ -1,21 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
-import "./index.css";
-import { Form, Input, DatePicker, Button, AutoComplete } from "antd";
+
+import { Form, Input, DatePicker, Button, AutoComplete, Select } from "antd";
+const { Option } = Select;
 import RecordModel from "./store/model";
 import { FormComponentProps } from "antd/lib/form";
 import { bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import RootState from "../../state";
-import { addRecordnRequest } from "./store/actions";
+import { addRecord } from "./store/actions";
 
 const { TextArea } = Input;
 
-const AutoCompleteOption = AutoComplete.Option;
-
 export interface Props extends FormComponentProps {
-  addRecordnRequest(state: RecordModel): void;
+  addRecord(state: RecordModel): void;
 }
 class RecordForm extends React.Component<Props, RecordModel> {
   state: RecordModel = {
@@ -28,7 +27,8 @@ class RecordForm extends React.Component<Props, RecordModel> {
     address: "",
     phone: "",
     blood: "",
-    photo: ""
+    photo: "",
+    email: ""
   };
 
   handleChangeApellido = (lastname: String) => [
@@ -42,9 +42,11 @@ class RecordForm extends React.Component<Props, RecordModel> {
       name
     });
   };
+  handlerChangeGenero = (gender: String) => {
+    this.setState({ gender });
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -64,23 +66,8 @@ class RecordForm extends React.Component<Props, RecordModel> {
       }
     ];
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
     return (
       <Form {...formItemLayout}>
-        <Form.Item label="Numero de cuenta" hasFeedback>
-          {getFieldDecorator("numeroCuenta", {
-            rules
-          })(
-            <AutoComplete
-              placeholder="no cuenta"
-              onChange={e => this.handleChangeNoCuenta(String(e))}
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </Form.Item>
         <Form.Item label="E-mail">
           {getFieldDecorator("email", {
             rules: [
@@ -138,27 +125,30 @@ class RecordForm extends React.Component<Props, RecordModel> {
             </AutoComplete>
           )}
         </Form.Item>
+
         <Form.Item label="Fecha de nacimiento">
           {getFieldDecorator("fecha de nacimiento", {
             rules
           })(
-            <AutoComplete
-              placeholder="fecha de nacimiento"
+            <DatePicker
               onChange={e => this.handlerChangeFechaDeNacimiento(String(e))}
-            >
-              <DatePicker />
-            </AutoComplete>
+            />
           )}
         </Form.Item>
-        <Form.Item label="Genero">
+        <Form.Item label="Genero" hasFeedback>
           {getFieldDecorator("Genero", {
-            rules
+            rules: [{ required: true, message: "seleccione" }]
           })(
-            <AutoComplete placeholder="Genero">
-              <DatePicker />
-            </AutoComplete>
+            <Select
+              placeholder="Selecione el genero"
+              onChange={e => this.handlerChangeGenero(String(e))}
+            >
+              <Option value="masculino">masculino</Option>
+              <Option value="femenino">femenino</Option>
+            </Select>
           )}
         </Form.Item>
+
         <Form.Item label="Nacionalidad" hasFeedback>
           {getFieldDecorator("nacionalidad", {
             rules
@@ -207,12 +197,16 @@ class RecordForm extends React.Component<Props, RecordModel> {
             </AutoComplete>
           )}
         </Form.Item>
-        <Button type="primary" loading={this.state.loading}>
+        <Button type="primary" loading={false} onClick={this.saveRecord}>
           Guardar Record
         </Button>
       </Form>
     );
   }
+
+  saveRecord = () => {
+    this.props.addRecord(this.state);
+  };
   handlerChangeTipoDeSangre(blood: string): void {
     this.setState({
       blood
@@ -223,32 +217,33 @@ class RecordForm extends React.Component<Props, RecordModel> {
       phone
     });
   }
-  handlerChangeDireccion(direccion: string): void {
+  handlerChangeDireccion(address: string): void {
     this.setState({
-      direccion
+      address
     });
   }
-  handlerChangeNacionalidad(nacionalidad: string): void {
+  handlerChangeNacionalidad(nacionality: string): void {
     this.setState({
-      nacionalidad
+      nacionality
     });
   }
-  handlerChangeLugarDeNacimiento(lugarDeNacimiento: string): void {
-    this.setState({ lugarDeNacimiento });
+  handlerChangeLugarDeNacimiento(birthplace: string): void {
+    this.setState({ birthplace });
   }
-  handlerChangeFechaDeNacimiento(fechaDeNacimiento: String): void {
+  handlerChangeFechaDeNacimiento(birthday: String): void {
+    console.log(birthday);
     this.setState({
-      fechaDeNacimiento: new Date(fechaDeNacimiento.toString())
+      birthday: new Date(birthday.toString())
     });
   }
-  handlerChangeApellido(apellido: string): void {
-    this.setState({ apellido });
+  handlerChangeApellido(lastname: string): void {
+    this.setState({ lastname });
   }
-  handlerChangeNombre(nombre: string): void {
-    this.setState({ nombre });
+  handlerChangeNombre(name: string): void {
+    this.setState({ name });
   }
-  handlerChangeEmail(correo: string): void {
-    this.setState({ correo });
+  handlerChangeEmail(email: string): void {
+    this.setState({ email });
   }
 }
 
@@ -256,14 +251,14 @@ const Record = Form.create({ name: "Record" })(RecordForm);
 
 function mapStateToProps(state: RootState) {
   return {
-    Record: state.Record
+    Record: state.record
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return bindActionCreators(
     {
-      addRecordnRequest
+      addRecord
     },
     dispatch
   );

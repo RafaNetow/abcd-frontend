@@ -17,7 +17,8 @@ export const RecordInitalState: RecordState = {
     address: "",
     phone: "",
     blood: "",
-    photo: ""
+    photo: "",
+    email: ""
   },
   isFetching: false,
   errorMessage: ""

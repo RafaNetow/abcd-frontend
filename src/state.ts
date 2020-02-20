@@ -1,7 +1,9 @@
 import TodoModel from "./models";
 import { RegistrationState } from "./containers/registration/store/state";
+import { RecordState } from "./containers/record/store/state";
 
 export default interface RootState {
   todos: TodoModel[];
-  ficha: RegistrationState;
+  registration: RegistrationState;
+  record: RecordState;
 }

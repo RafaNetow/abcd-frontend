@@ -1,10 +1,10 @@
 import React from "react";
 // import ref from "./containers/references/References";
-import "./App.css";
 
 import "antd/dist/antd.css";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 import StudentInformation from "./containers/registration/StudentInformation";
+import RecordForm from "./containers/record/record";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -19,7 +19,8 @@ interface ComponentDictionary {
 }
 
 const mainComponents: ComponentDictionary = {
-  ficha: <StudentInformation />
+  registration: <StudentInformation />,
+  record: <RecordForm />
 };
 
 class App extends React.Component<IProps, IState> {
@@ -74,14 +75,10 @@ class App extends React.Component<IProps, IState> {
                 </Menu.Item>
                 <Menu.Item
                   onClick={this.changeCurrentMainComponent}
-                  key="ficha"
+                  key="registration"
                 >
                   <Icon type="file-add" />
                   Nueva matricula
-                </Menu.Item>
-                <Menu.Item onClick={this.changeCurrentMainComponent} key="new">
-                  <Icon type="file-add" />
-                  Nueva Ficha
                 </Menu.Item>
               </SubMenu>
               <SubMenu
@@ -93,24 +90,19 @@ class App extends React.Component<IProps, IState> {
                   </span>
                 }
               >
-                <Menu.Item key="5">Crear Ficha</Menu.Item>
-                <Menu.Item key="6">option6</Menu.Item>
+                <Menu.Item
+                  key="record"
+                  onClick={this.changeCurrentMainComponent}
+                >
+                  <Icon type="file-add" />
+                  Nueva Ficha
+                </Menu.Item>
+                <Menu.Item key="6">
+                  <Icon type="unordered-list" />
+                  List
+                </Menu.Item>
                 <Menu.Item key="7">option7</Menu.Item>
                 <Menu.Item key="8">option8</Menu.Item>
-              </SubMenu>
-              <SubMenu
-                key="sub3"
-                title={
-                  <span>
-                    <Icon type="notification" />
-                    subnav 3
-                  </span>
-                }
-              >
-                <Menu.Item key="9">option9</Menu.Item>
-                <Menu.Item key="10">option10</Menu.Item>
-                <Menu.Item key="11">option11</Menu.Item>
-                <Menu.Item key="12">option12</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>

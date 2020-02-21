@@ -1,23 +1,46 @@
 import React from "react";
 import "antd/dist/antd.css";
-import "./index.css";
-import { FormComponentProps } from "antd/lib/form/Form";
 import { Form, Input, Card, Checkbox, AutoComplete } from "antd";
+import { FormComponentProps } from "antd/lib/form";
 import RootState from "../../state";
 import { Dispatch, bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import ReferenceModel from "./store/model";
+import {
+  changeManger,
+  changeOwnhouse,
+  changePhone,
+  changeWorkPlace
+} from "./store/action";
 
-const { TextArea } = Input;
+interface Props extends FormComponentProps {
+  changeManger(value: string): void;
+  changeOwnhouse(value: boolean): void;
+  changePhone(value: string): void;
+  changeWorkPlace(value: string): void;
+}
 
-interface Props extends FormComponentProps {}
+export class ReferenceForm extends React.Component<Props, ReferenceModel> {
+  state: ReferenceModel = {
+    manager: "",
+    workplace: "",
+    phone: "",
+    ownhouse: ""
+  };
+  handlerChangeNombre = (nombre: string) => {
+    this.props.changeManger(nombre);
+  };
 
-class ReferenceForm extends React.Component<Props> {
-  handlerChangeNombre = (nombre: string) => {};
+  handlerChangeOwnerhouse = (nikcname: boolean) => {
+    this.props.changeOwnhouse(nikcname);
+  };
+  handlerChangePhone = (phone: string) => {
+    this.props.changePhone(phone);
+  };
 
-  handlerChangeOwnerhouse = (nikcname: boolean) => {};
-  handlerChangePhone = (phone: string) => {};
-
-  handlerChangeWorkPlace = (workplace: string) => {};
+  handlerChangeWorkPlace = (workplace: string) => {
+    this.props.changeWorkPlace(workplace);
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -115,7 +138,7 @@ class ReferenceForm extends React.Component<Props> {
     );
   }
 }
-const Record = Form.create({ name: "record" })(ReferenceForm);
+const Record = Form.create({ name: "reference" })(ReferenceForm);
 
 function mapStateToProps(state: RootState) {
   return {
@@ -124,7 +147,10 @@ function mapStateToProps(state: RootState) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators(
+    { changeManger, changeOwnhouse, changePhone, changeWorkPlace },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Record);

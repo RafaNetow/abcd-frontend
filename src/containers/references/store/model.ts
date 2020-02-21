@@ -1,6 +1,6 @@
-export default interface ReferencedModel {
-  manager: String;
-  workplace: String;
-  phone: String;
-  ownhouse: String;
+export default interface ReferenceModel {
+  manager: String
+  workplace: String
+  phone: String
+  ownhouse: String
 }

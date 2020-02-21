@@ -1,6 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
+import { ReferenceForm } from "../references/References";
 
 import { Form, Input, DatePicker, Button, AutoComplete, Select } from "antd";
 const { Option } = Select;
@@ -197,6 +197,7 @@ class RecordForm extends React.Component<Props, RecordModel> {
             </AutoComplete>
           )}
         </Form.Item>
+        <ReferenceForm />
         <Button type="primary" loading={false} onClick={this.saveRecord}>
           Guardar Record
         </Button>
@@ -247,7 +248,7 @@ class RecordForm extends React.Component<Props, RecordModel> {
   }
 }
 
-const Record = Form.create({ name: "Record" })(RecordForm);
+const Record = Form.create({ name: "record" })(RecordForm);
 
 function mapStateToProps(state: RootState) {
   return {

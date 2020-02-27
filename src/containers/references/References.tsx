@@ -79,7 +79,6 @@ export class ReferenceForm extends React.Component<Props, ReferenceModel> {
                 <Input />
               </AutoComplete>
             )}
-            }
           </Form.Item>
           <Form.Item label={<span>Tiene casa propia&nbsp;</span>}>
             <Checkbox onChange={e => this.handlerChangeOwnerhouse(e)} />

@@ -1,4 +1,4 @@
 export default interface TodoModel {
-  name: string;
-  completed: boolean;
+  name: string
+  completed: boolean
 }

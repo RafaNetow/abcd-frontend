@@ -12,6 +12,7 @@ import {
   changePhone,
   changeWorkPlace
 } from "./store/action";
+import { worker } from "cluster";
 
 interface Props extends FormComponentProps {
   changeManger(value: string): void;
@@ -31,8 +32,8 @@ export class ReferenceForm extends React.Component<Props, ReferenceModel> {
     this.props.changeManger(nombre);
   };
 
-  handlerChangeOwnerhouse = (nikcname: boolean) => {
-    this.props.changeOwnhouse(nikcname);
+  handlerChangeOwnerhouse = (ownhouse: boolean) => {
+    this.props.changeOwnhouse(ownhouse);
   };
   handlerChangePhone = (phone: string) => {
     this.props.changePhone(phone);
@@ -79,23 +80,9 @@ export class ReferenceForm extends React.Component<Props, ReferenceModel> {
             }
           </Form.Item>
           <Form.Item label={<span>Tiene casa propia&nbsp;</span>}>
-            {getFieldDecorator("casa propia", {
-              rules: [
-                {
-                  required: true,
-                  message: "porfavor indique si tiene casa propia",
-                  whitespace: true
-                }
-              ]
-            })(
-              <AutoComplete
-                placeholder="nombre"
-                onChange={e => this.handlerChangeOwnerhouse(Boolean(e))}
-              >
-                <Checkbox />
-              </AutoComplete>
-            )}
-            )
+            <Checkbox
+              onChange={e => this.handlerChangeOwnerhouse(Boolean(e))}
+            />
           </Form.Item>
           <Form.Item label={<span>Lugar de trabajo&nbsp;</span>}>
             {getFieldDecorator("workplace", {

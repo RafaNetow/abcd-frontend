@@ -26,14 +26,16 @@ export class ReferenceForm extends React.Component<Props, ReferenceModel> {
     manager: "",
     workplace: "",
     phone: "",
-    ownhouse: ""
+    ownhouse: false
   };
   handlerChangeNombre = (nombre: string) => {
     this.props.changeManger(nombre);
   };
 
-  handlerChangeOwnerhouse = (ownhouse: boolean) => {
-    this.props.changeOwnhouse(ownhouse);
+  handlerChangeOwnerhouse = (event: any) => {
+    let ownhouse = event.target.checked;
+    console.log(ownhouse);
+    this.props.changeOwnhouse(Boolean(ownhouse));
   };
   handlerChangePhone = (phone: string) => {
     this.props.changePhone(phone);
@@ -80,9 +82,7 @@ export class ReferenceForm extends React.Component<Props, ReferenceModel> {
             }
           </Form.Item>
           <Form.Item label={<span>Tiene casa propia&nbsp;</span>}>
-            <Checkbox
-              onChange={e => this.handlerChangeOwnerhouse(Boolean(e))}
-            />
+            <Checkbox onChange={e => this.handlerChangeOwnerhouse(e)} />
           </Form.Item>
           <Form.Item label={<span>Lugar de trabajo&nbsp;</span>}>
             {getFieldDecorator("workplace", {

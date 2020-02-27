@@ -1,18 +1,18 @@
-import ReferencedModel from "./model";
+import ReferencedModel from './model'
 
-export interface ReferencedState {
-  isFetching: boolean;
-  errorMessage: string;
-  reference: ReferencedModel;
+export interface ReferenceState {
+  isFetching: boolean
+  errorMessage: string
+  reference: ReferencedModel
 }
 
-export const ReferenceInitalState: ReferencedState = {
+export const ReferenceInitalState: ReferenceState = {
   reference: {
-    ownhouse: "",
-    phone: "",
-    manager: "",
-    workplace: ""
+    ownhouse: false,
+    phone: '',
+    manager: '',
+    workplace: ''
   },
   isFetching: false,
-  errorMessage: ""
-};
+  errorMessage: ''
+}

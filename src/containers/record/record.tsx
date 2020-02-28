@@ -1,6 +1,7 @@
 import React from "react";
 import "antd/dist/antd.css";
 import ReferenceForm from "../references/References";
+import HealthDataForm from "../healthData/health";
 
 import {
   Form,
@@ -210,6 +211,7 @@ class RecordForm extends React.Component<Props, RecordModel> {
           </Form>{" "}
         </Card>
         <ReferenceForm />
+        <HealthDataForm />
         <Button type="primary" loading={false} onClick={this.saveRecord}>
           Guardar Record
         </Button>

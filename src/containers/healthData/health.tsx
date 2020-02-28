@@ -18,7 +18,7 @@ const { TextArea } = Input;
 interface Props extends FormComponentProps {}
 interface Props extends FormComponentProps {
   changePastDisease(value: string): void;
-  changeSicknesse(value: boolean): void;
+  changeSicknesse(value: string): void;
   changeTreatments(value: string): void;
   changeVaccine(value: string): void;
 }
@@ -30,18 +30,22 @@ export class HealthDataForm extends React.Component<Props, HealthDataModel> {
     treatments: "",
     pastDiseases: ""
   };
-  handleChangeDisease = (disease: string) => {
+  handleChangeDisease = (event: any) => {
+    let disease = event.target.value;
     this.props.changePastDisease(disease);
   };
 
-  handleChangeTreatments = (treatments: string) => {
+  handleChangeTreatments = (event: any) => {
+    let treatments = event.target.value;
     this.props.changePastDisease(treatments);
   };
-  handleChangeVaccine = (vaccine: string) => {
+  handleChangeVaccine = (event: any) => {
+    let vaccine = event.targe.value;
     this.props.changePastDisease(vaccine);
   };
 
-  handleChangePastDesease = (pastDiseases: string) => {
+  handleChangePastDesease = (event: any) => {
+    let pastDiseases = event.target.value;
     this.props.changePastDisease(pastDiseases);
   };
 
@@ -66,17 +70,18 @@ export class HealthDataForm extends React.Component<Props, HealthDataModel> {
             {getFieldDecorator(
               "enfermedad",
               {}
-            )(<TextArea onChange={e => this.handleChangeDisease(String(e))} />)}
+            )(<TextArea onChange={e => this.handleChangeDisease(e)} />)}
           </Form.Item>
           <Form.Item label="tratamientos">
             {getFieldDecorator("tratamientos")(
-              <TextArea onChange={e => this.handleChangeDisease(String(e))} />
+              <TextArea
+                onChange={e => this.handleChangeTreatments(String(e))}
+              />
             )}
           </Form.Item>
 
           <Form.Item label={<span>vacunas aplicadas</span>}>
-            })(
-            <TextArea onChange={e => this.handleChangeVaccine(String(e))} />)
+            <TextArea onChange={e => this.handleChangeVaccine(String(e))} />
           </Form.Item>
           <Form.Item label={<span>Enfermades que ha padecido&nbsp;</span>}>
             {getFieldDecorator("enfermedadesPadecidas")(

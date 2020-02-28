@@ -13,7 +13,7 @@ export const changeTreatmentsInput = createAction(
 export const changeVaccineInput = createAction(Type.CHANGED_VACCINE_INPUT);
 
 export function changePastDisease(
-  payload: String
+  payload: string
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     try {
@@ -25,10 +25,11 @@ export function changePastDisease(
 }
 
 export function changeSicknesse(
-  payload: String
+  payload: string
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     try {
+      console.log(payload);
       dispatch(changeSicknesseInput(payload));
     } catch (error) {
       console.log(error);
@@ -37,7 +38,7 @@ export function changeSicknesse(
 }
 
 export function changeTreatments(
-  payload: String
+  payload: string
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     try {
@@ -49,7 +50,7 @@ export function changeTreatments(
 }
 
 export function changeVaccine(
-  payload: String
+  payload: string
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     try {

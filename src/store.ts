@@ -4,7 +4,7 @@ import { rootReducer } from "./rootReducer";
 import RootState from "./state";
 
 const initialState = {} as RootState;
-
+/*
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -15,7 +15,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
   applyMiddleware(thunk)
   // other store enhancers if any
-);
+);*/
 //
 
-export default createStore(rootReducer, enhancer) as Store<RootState>;
+export default createStore(rootReducer /*enhancer*/) as Store<RootState>;
